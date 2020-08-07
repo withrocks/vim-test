@@ -30,14 +30,25 @@ function! test#base#executable(runner) abort
   endif
 endfunction
 
+" Returns the interface version of the test runner script. If not provided,
+" version 1 is assumed. This is so breaking changes can be introduced.
+function! test#base#runner_interface_version(runner)
+  if exists('g:test#'.a:runner.'interface_version')
+    return test#{a:runner}#interface_version()
+  else
+    return 1
+  endif
+endfunction
+
 function! test#base#build_args(runner, args, strategy)
   let no_color = has('gui_running') && a:strategy ==# 'basic'
+  let interface_version = test#base#runner_interface_version(a:runner)
 
-  try
-    return test#{a:runner}#build_args(a:args, !no_color)
-  catch /^Vim\%((\a\+)\)\=:E118/ " too many arguments
+  if interface_version == 1
     return test#{a:runner}#build_args(a:args)
-  endtry
+  else
+    return test#{a:runner}#build_args(a:args, !no_color)
+  endif
 endfunction
 
 function! test#base#file_exists(file) abort

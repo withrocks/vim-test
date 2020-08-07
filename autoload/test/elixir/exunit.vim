@@ -2,6 +2,10 @@ if !exists('g:test#elixir#exunit#file_pattern')
   let g:test#elixir#exunit#file_pattern = '\v_test\.exs$'
 endif
 
+function! test#elixir#exunit#interface_version() abort
+  return 2
+endfunction
+
 function! test#elixir#exunit#test_file(file) abort
   return a:file =~# g:test#elixir#exunit#file_pattern
 endfunction
