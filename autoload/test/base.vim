@@ -33,7 +33,7 @@ endfunction
 " Returns the interface version of the test runner script. If not provided,
 " version 1 is assumed. This is so breaking changes can be introduced.
 function! test#base#runner_interface_version(runner)
-  if exists('g:test#'.a:runner.'interface_version')
+  if exists('*test#'.a:runner.'#interface_version')
     return test#{a:runner}#interface_version()
   else
     return 1

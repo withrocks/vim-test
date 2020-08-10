@@ -12,6 +12,11 @@ function! test#python#pytest#test_file(file) abort
   endif
 endfunction
 
+function! test#python#pytest#interface_version() abort
+  return 2
+endfunction
+
+
 function! test#python#pytest#build_position(type, position) abort
   if a:type ==# 'nearest'
     let name = s:nearest_test(a:position)
